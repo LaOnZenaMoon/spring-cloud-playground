@@ -1,0 +1,11 @@
+### IDEA
+.idea
+
+### Gradle
+.gradle
+gradle
+gradlew
+gradlew.bat
+
+### etc
+build
