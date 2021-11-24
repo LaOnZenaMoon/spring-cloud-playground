@@ -28,7 +28,12 @@ spring:
           filters:
             - AddRequestHeader=admin-request, admin-request-value2
             - AddResponseHeader=admin-response, admin-response-value2
-            - CustomFilter
+            - name: CustomFilter
+            - name: LoggingFilter
+              args:
+                baseMessage: Spring Cloud Gateway LoggingFilter
+                preLogger: true
+                postLogger: true
 
 eureka:
   client:
