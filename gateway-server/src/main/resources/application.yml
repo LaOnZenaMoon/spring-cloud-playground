@@ -11,10 +11,16 @@ spring:
           uri: http://localhost:8081/
           predicates:
             - Path=/user-service/**
+          filters:
+            - AddRequestHeader=user-request, user-request-value2
+            - AddResponseHeader=user-response, user-response-value2
         - id: admin-service
           uri: http://localhost:8082/
           predicates:
             - Path=/admin-service/**
+          filters:
+            - AddRequestHeader=admin-request, admin-request-value2
+            - AddResponseHeader=admin-response, admin-response-value2
 
 eureka:
   client:
