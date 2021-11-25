@@ -14,7 +14,6 @@ spring:
             postLogger: true
       routes:
         - id: user-service
-#          uri: http://localhost:8081/
           uri: lb://user-service-app
           predicates:
             - Path=/user-service/**
@@ -23,7 +22,6 @@ spring:
             - AddResponseHeader=user-response, user-response-value2
             - CustomFilter
         - id: admin-service
-#          uri: http://localhost:8082/
           uri: lb://admin-service-app
           predicates:
             - Path=/admin-service/**
