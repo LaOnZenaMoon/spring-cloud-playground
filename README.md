@@ -16,3 +16,6 @@
 ## skills
 * Java 11
 * Spring Boot 2.4
+* Spring Cloud
+  * Spring Cloud Netflix Eureka
+  * Spring Cloud Gateway
