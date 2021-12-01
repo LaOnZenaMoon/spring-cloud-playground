@@ -4,10 +4,6 @@ server:
 spring:
   application:
     name: user-service-app
-  autoconfigure:
-    exclude:
-      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
-      - org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
 
 eureka:
   instance:
