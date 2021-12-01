@@ -1,0 +1,7 @@
+bootJar { enabled = false }
+jar { enabled = true }
+
+dependencies {
+    implementation 'jakarta.validation:jakarta.validation-api'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+}

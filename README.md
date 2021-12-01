@@ -13,6 +13,9 @@
 ## admin-service
 * Microservice for test
 
+## core
+* Common module used by all microservices 
+
 ## skills
 * Java 11
 * Spring Boot 2.4
