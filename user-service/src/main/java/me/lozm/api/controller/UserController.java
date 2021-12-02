@@ -25,7 +25,7 @@ public class UserController {
 
     @RequestMapping("health-check")
     public String healthCheck() {
-        return environment.getProperty("health-check.message");
+        return String.format("User service is available on PORT %s", environment.getProperty("local.server.port"));
     }
 
     @PostMapping("users")
