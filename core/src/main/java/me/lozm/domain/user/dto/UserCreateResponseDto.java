@@ -10,8 +10,5 @@ public class UserCreateResponseDto {
     private String email;
     private String userId;
     private String name;
-    private String password;
-    private String encryptedPassword;
-    private LocalDateTime createdDateTime;
 
 }

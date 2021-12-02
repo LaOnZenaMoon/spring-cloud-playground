@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
         user.encryptPassword("encrypted_password");
         userRepository.save(user);
 
-        return null;
+        return userCreateVo;
     }
 
 }

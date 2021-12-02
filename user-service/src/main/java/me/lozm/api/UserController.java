@@ -2,9 +2,12 @@ package me.lozm.api;
 
 import lombok.RequiredArgsConstructor;
 import me.lozm.domain.user.dto.UserCreateRequestDto;
+import me.lozm.domain.user.dto.UserCreateResponseDto;
 import me.lozm.domain.user.service.UserService;
 import me.lozm.domain.user.vo.UserCreateVo;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,15 +25,17 @@ public class UserController {
 
     @RequestMapping("health-check")
     public String healthCheck() {
-//        return "User service is available.";
         return environment.getProperty("health-check.message");
     }
 
     @PostMapping("users")
-    public String createUser(@RequestBody UserCreateRequestDto requestDto) {
+    public ResponseEntity<UserCreateResponseDto> createUser(@RequestBody UserCreateRequestDto requestDto) {
         UserCreateVo userCreateVo = mapStrictly(requestDto, UserCreateVo.class);
-        userService.createUser(userCreateVo);
-        return "Create user method is called.";
+        UserCreateVo returnUserCreateVo = userService.createUser(userCreateVo);
+
+        UserCreateResponseDto userCreateResponseDto = mapStrictly(returnUserCreateVo, UserCreateResponseDto.class);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(userCreateResponseDto);
     }
 
 }
