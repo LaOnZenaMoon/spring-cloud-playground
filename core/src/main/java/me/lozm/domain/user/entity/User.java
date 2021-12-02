@@ -28,7 +28,7 @@ public class User {
     @Column(nullable = false, unique = true)
     private String encryptedPassword;
 
-    //TODO 패스워드 암호화 기능 개발 필요
+
     public void encryptPassword(String encryptedPassword) {
         this.encryptedPassword = encryptedPassword;
     }

@@ -1,9 +1,9 @@
-package me.lozm.api;
+package me.lozm.api.controller;
 
 import lombok.RequiredArgsConstructor;
 import me.lozm.domain.user.dto.UserCreateRequestDto;
 import me.lozm.domain.user.dto.UserCreateResponseDto;
-import me.lozm.domain.user.service.UserService;
+import me.lozm.api.service.UserService;
 import me.lozm.domain.user.vo.UserCreateVo;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;

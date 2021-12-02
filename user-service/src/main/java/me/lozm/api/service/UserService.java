@@ -1,4 +1,4 @@
-package me.lozm.domain.user.service;
+package me.lozm.api.service;
 
 import me.lozm.domain.user.vo.UserCreateVo;
 
