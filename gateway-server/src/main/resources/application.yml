@@ -40,6 +40,12 @@ spring:
             - Path=/catalog-service/**
           filters:
             - CustomFilter
+        - id: order-service
+            uri: lb://order-service-app
+            predicates:
+              - Path=/order-service/**
+            filters:
+              - CustomFilter
 
 eureka:
   client:
