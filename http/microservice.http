@@ -20,10 +20,19 @@ Content-Type: application/json
 > {%
 client.test("Request executed successfully", function() {
   client.assert(response.status == 201, "Response status is not 201");
-  client.log(response);
-  // client.global.set("userId", response.body.userId);
+  client.global.set("userId", response.body.userId);
 });
 %}
+
+### user-service > 사용자 상세 조회
+GET {{host}}/user-service/users/{{userId}}
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status == 200, "Response status is not 200");
+});
+%}
+
 
 
 ### catalog-service > health check
