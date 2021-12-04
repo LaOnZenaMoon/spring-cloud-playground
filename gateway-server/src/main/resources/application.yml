@@ -17,10 +17,14 @@ spring:
           uri: lb://user-service-app
           predicates:
             - Path=/user-service/**
-          filters:
-            - AddRequestHeader=user-request, user-request-value2
-            - AddResponseHeader=user-response, user-response-value2
-            - CustomFilter
+        - id: catalog-service
+          uri: lb://catalog-service-app
+          predicates:
+            - Path=/catalog-service/**
+        - id: order-service
+          uri: lb://order-service-app
+          predicates:
+            - Path=/order-service/**
         - id: admin-service
           uri: lb://admin-service-app
           predicates:
@@ -34,18 +38,6 @@ spring:
                 baseMessage: Spring Cloud Gateway LoggingFilter
                 preLogger: true
                 postLogger: true
-        - id: catalog-service
-          uri: lb://catalog-service-app
-          predicates:
-            - Path=/catalog-service/**
-          filters:
-            - CustomFilter
-        - id: order-service
-            uri: lb://order-service-app
-            predicates:
-              - Path=/order-service/**
-            filters:
-              - CustomFilter
 
 eureka:
   client:

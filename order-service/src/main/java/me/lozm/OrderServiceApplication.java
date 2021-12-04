@@ -8,10 +8,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @EnableDiscoveryClient
 @SpringBootApplication
-public class CatalogServiceApplication {
+public class OrderServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(CatalogServiceApplication.class, args);
+        SpringApplication.run(OrderServiceApplication.class, args);
     }
 
 }

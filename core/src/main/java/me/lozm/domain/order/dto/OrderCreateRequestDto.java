@@ -15,8 +15,4 @@ public class OrderCreateRequestDto {
     @Size(min = 1, message = "Quantity grater than 1")
     private Integer quantity;
 
-    @NotNull(message = "unitPrice cannot be null")
-    @Size(min = 1, message = "unitPrice grater than 1")
-    private Integer unitPrice;
-
 }
