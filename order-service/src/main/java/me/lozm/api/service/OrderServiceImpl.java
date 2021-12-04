@@ -26,16 +26,6 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
-    public OrderInfoVo createOrder(OrderInfoVo orderInfoVo) {
-        orderInfoVo.setOrderId(UUID.randomUUID().toString());
-        orderInfoVo.setTotalPrice(orderInfoVo.getUnitPrice() * orderInfoVo.getQuantity());
-
-        Order order = mapStrictly(orderInfoVo, Order.class);
-        orderRepository.save(order);
-        return mapStrictly(order, OrderInfoVo.class);
-    }
-
-    @Override
     public OrderInfoVo getOrderDetail(String orderId) {
         Order order = orderRepository.findByOrderId(orderId)
                 .orElseThrow(() -> new IllegalArgumentException(format("주문 정보가 존재하지 않습니다. 주문 ID: %s", orderId)));
@@ -50,6 +40,16 @@ public class OrderServiceImpl implements OrderService {
                 .stream()
                 .map(order -> mapStrictly(order, OrderInfoVo.class))
                 .collect(toList());
+    }
+
+    @Override
+    public OrderInfoVo createOrder(OrderInfoVo orderInfoVo) {
+        orderInfoVo.setOrderId(UUID.randomUUID().toString());
+        orderInfoVo.setTotalPrice(orderInfoVo.getUnitPrice() * orderInfoVo.getQuantity());
+
+        Order order = mapStrictly(orderInfoVo, Order.class);
+        orderRepository.save(order);
+        return mapStrictly(order, OrderInfoVo.class);
     }
 
 }

@@ -32,7 +32,7 @@ public class UserController {
     }
 
     @GetMapping("users/{userId}")
-    public ResponseEntity<UserInfoResponseDto> getUserDetail(@PathVariable String userId) {
+    public ResponseEntity<UserInfoResponseDto> getUserDetail(@PathVariable("userId") String userId) {
         UserInfoVo userInfoVo = userService.getUserDetail(userId);
 
         UserInfoResponseDto userInfoResponseDto = mapStrictly(userInfoVo, UserInfoResponseDto.class);
@@ -54,9 +54,9 @@ public class UserController {
     @PostMapping("users")
     public ResponseEntity<UserCreateResponseDto> createUser(@RequestBody UserCreateRequestDto requestDto) {
         UserCreateVo userCreateVo = mapStrictly(requestDto, UserCreateVo.class);
-        UserCreateVo returnUserCreateVo = userService.createUser(userCreateVo);
+        UserCreateVo responseUserCreateVo = userService.createUser(userCreateVo);
 
-        UserCreateResponseDto userCreateResponseDto = mapStrictly(returnUserCreateVo, UserCreateResponseDto.class);
+        UserCreateResponseDto userCreateResponseDto = mapStrictly(responseUserCreateVo, UserCreateResponseDto.class);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(userCreateResponseDto);
     }

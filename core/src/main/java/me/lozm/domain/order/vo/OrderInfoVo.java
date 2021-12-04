@@ -13,7 +13,7 @@ public class OrderInfoVo {
     private Integer unitPrice;
     @Setter
     private Integer totalPrice;
-
+    @Setter
     private String userId;
 
 }
