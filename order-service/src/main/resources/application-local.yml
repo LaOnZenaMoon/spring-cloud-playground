@@ -24,8 +24,6 @@ spring:
           batch_size: 100
           order_inserts: true
 
-#defer-datasource-initialization: true
-
 logging:
   level:
     me.lozm: DEBUG
