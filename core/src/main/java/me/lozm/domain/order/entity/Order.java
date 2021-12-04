@@ -1,9 +1,6 @@
 package me.lozm.domain.order.entity;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
@@ -27,6 +24,7 @@ public class Order {
     @Column(nullable = false)
     private Integer quantity;
 
+    @Setter
     @Column(nullable = false)
     private Integer unitPrice;
 

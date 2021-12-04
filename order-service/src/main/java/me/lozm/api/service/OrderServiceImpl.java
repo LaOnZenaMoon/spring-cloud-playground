@@ -1,6 +1,7 @@
 package me.lozm.api.service;
 
 import lombok.RequiredArgsConstructor;
+import me.lozm.domain.catalog.entity.Catalog;
 import me.lozm.domain.catalog.repository.CatalogRepository;
 import me.lozm.domain.catalog.vo.CatalogInfoVo;
 import me.lozm.domain.order.entity.Order;
@@ -23,6 +24,7 @@ import static me.lozm.global.utils.ModelMapperUtils.mapStrictly;
 public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
+    private final CatalogRepository catalogRepository;
 
 
     @Override
@@ -45,9 +47,13 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderInfoVo createOrder(OrderInfoVo orderInfoVo) {
         orderInfoVo.setOrderId(UUID.randomUUID().toString());
-        orderInfoVo.setTotalPrice(orderInfoVo.getUnitPrice() * orderInfoVo.getQuantity());
+
+        Catalog catalog = catalogRepository.findByProductId(orderInfoVo.getProductId())
+                .orElseThrow(() -> new IllegalArgumentException(format("상품 정보가 존재하지 않습니다. 상품 ID: %s", orderInfoVo.getProductId())));
+        orderInfoVo.setTotalPrice(catalog.getUnitPrice() * orderInfoVo.getQuantity());
 
         Order order = mapStrictly(orderInfoVo, Order.class);
+        order.setUnitPrice(catalog.getUnitPrice());
         orderRepository.save(order);
         return mapStrictly(order, OrderInfoVo.class);
     }

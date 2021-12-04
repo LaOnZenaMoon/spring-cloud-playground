@@ -20,12 +20,21 @@ Content-Type: application/json
 > {%
 client.test("Request executed successfully", function() {
   client.assert(response.status == 201, "Response status is not 201");
-  client.global.set("userId", response.body.userId);
 });
+client.global.set("userId", response.body.userId);
 %}
 
 ### user-service > 사용자 상세 조회
 GET {{host}}/user-service/users/{{userId}}
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status == 200, "Response status is not 200");
+});
+%}
+
+### user-service > 사용자 목록 조회
+GET {{host}}/user-service/users
 
 > {%
 client.test("Request executed successfully", function() {
@@ -44,8 +53,54 @@ client.test("Request executed successfully", function() {
 });
 %}
 
+### catalog-service > 상품 목록 조회
+GET {{host}}/catalog-service/catalogs
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status == 200, "Response status is not 200");
+});
+client.global.set("productId", response.body[0].productId);
+%}
+
+
+
 ### order-service > health check
 GET {{host}}/order-service/health-check
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status == 200, "Response status is not 200");
+});
+%}
+
+### order-service > 주문 추가
+POST {{host}}/order-service/{{userId}}/orders
+Content-Type: application/json
+
+{
+  "productId": "{{productId}}",
+  "quantity": 10
+}
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status == 201, "Response status is not 201");
+});
+client.global.set("orderId", response.body.orderId);
+%}
+
+### order-service > 주문 상세 조회
+GET {{host}}/order-service/orders/{{orderId}}
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status == 200, "Response status is not 200");
+});
+%}
+
+### order-service > 주문 목록 조회
+GET {{host}}/order-service/{{userId}}/orders
 
 > {%
 client.test("Request executed successfully", function() {
