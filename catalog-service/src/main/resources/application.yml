@@ -1,9 +1,10 @@
 server:
-  port: 0 # random port
+#  port: 0 # random port
+  port: 8080 # random port
 
 spring:
   application:
-    name: user-service-app
+    name: catalog-service-app
   profiles:
     active: local
 

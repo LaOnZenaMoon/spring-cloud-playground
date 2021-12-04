@@ -5,7 +5,6 @@ import me.lozm.domain.user.dto.UserCreateRequestDto;
 import me.lozm.domain.user.dto.UserCreateResponseDto;
 import me.lozm.api.service.UserService;
 import me.lozm.domain.user.dto.UserInfoResponseDto;
-import me.lozm.domain.user.vo.OrderInfoVo;
 import me.lozm.domain.user.vo.UserCreateVo;
 import me.lozm.domain.user.vo.UserInfoVo;
 import org.springframework.core.env.Environment;
@@ -14,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 import static me.lozm.global.utils.ModelMapperUtils.mapStrictly;
