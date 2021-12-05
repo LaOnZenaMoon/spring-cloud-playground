@@ -39,10 +39,14 @@ spring:
           uri: lb://catalog-service-app
           predicates:
             - Path=/catalog-service/**
+          filters:
+            - RewritePath=/catalog-service/(?<segment>.*), /$\{segment}
         - id: order-service
           uri: lb://order-service-app
           predicates:
             - Path=/order-service/**
+          filters:
+            - RewritePath=/order-service/(?<segment>.*), /$\{segment}
         - id: admin-service
           uri: lb://admin-service-app
           predicates:
@@ -56,6 +60,7 @@ spring:
                 baseMessage: Spring Cloud Gateway LoggingFilter
                 preLogger: true
                 postLogger: true
+            - RewritePath=/admin-service/(?<segment>.*), /$\{segment}
 
 eureka:
   client:

@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 
 @Slf4j
-@RequestMapping("admin-service")
 @RestController
 @RequiredArgsConstructor
 public class WelcomeController {

@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 import static java.util.stream.Collectors.toList;
 import static me.lozm.global.utils.ModelMapperUtils.mapStrictly;
 
-@RequestMapping("order-service")
 @RestController
 @RequiredArgsConstructor
 public class OrderController {
