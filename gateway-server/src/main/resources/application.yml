@@ -30,11 +30,11 @@ spring:
             - RemoveRequestHeader=Cookie
             - RewritePath=/user-service/(?<segment>.*), /$\{segment}
         - id: user-service
-            uri: lb://user-service-app
-            predicates:
-              - Path=/user-service/**
-            filters:
-              - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+          uri: lb://user-service-app
+          predicates:
+            - Path=/user-service/**
+          filters:
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
         - id: catalog-service
           uri: lb://catalog-service-app
           predicates:
