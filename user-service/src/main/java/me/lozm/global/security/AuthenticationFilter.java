@@ -1,11 +1,14 @@
 package me.lozm.global.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.lozm.api.service.UserService;
 import me.lozm.domain.user.dto.UserLoginRequestDto;
 import me.lozm.domain.user.vo.UserInfoVo;
+import org.apache.http.HttpStatus;
 import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import static java.lang.String.format;
 
@@ -61,6 +65,14 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         //TODO 로그인 성공 이후, Token 응답 처리
         UserInfoVo userInfoVo = userService.findByEmail(email);
 
+        String token = Jwts.builder()
+                .setSubject(userInfoVo.getUserId())
+                .setExpiration(new Date(System.currentTimeMillis() + Long.parseLong(environment.getProperty("jwt-token.expiration-time"))))
+                .signWith(SignatureAlgorithm.HS512, environment.getProperty("jwt-token.secret-key"))
+                .compact();
+
+        response.addHeader("token", token);
+        response.addHeader("userId", userInfoVo.getUserId());
     }
 
     @Override

@@ -35,6 +35,7 @@ spring:
             - Path=/user-service/**
           filters:
             - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+            - AuthorizationHeaderFilter
         - id: catalog-service
           uri: lb://catalog-service-app
           predicates:
@@ -68,3 +69,6 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://127.0.0.1:8761/eureka
+
+jwt-token:
+  secret-key: laonzenamoon
