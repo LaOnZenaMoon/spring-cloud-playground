@@ -17,7 +17,6 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 import static me.lozm.global.utils.ModelMapperUtils.mapStrictly;
 
-@RequestMapping("user-service")
 @RestController
 @RequiredArgsConstructor
 public class UserController {
