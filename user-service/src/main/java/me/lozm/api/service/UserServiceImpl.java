@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import static java.lang.String.format;
@@ -67,6 +66,14 @@ public class UserServiceImpl implements UserService {
                 user.getEmail(), user.getEncryptedPassword(),
                 true, true, true, true, new ArrayList<>()
         );
+    }
+
+    @Override
+    public UserInfoVo findByEmail(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException(format("사용자 정보가 존재하지 않습니다. 사용자 이메일: %s", email)));
+
+        return mapStrictly(user, UserInfoVo.class);
     }
 
 }

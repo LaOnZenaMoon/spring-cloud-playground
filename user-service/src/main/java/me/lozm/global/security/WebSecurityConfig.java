@@ -3,6 +3,7 @@ package me.lozm.global.security;
 import lombok.RequiredArgsConstructor;
 import me.lozm.api.service.UserService;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -18,6 +19,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserService userService;
     private final BCryptPasswordEncoder passwordEncoder;
+    private final Environment environment;
 
 
     @Override
@@ -26,7 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/**")
-                .hasIpAddress("172.30.85.57")
+                .hasIpAddress("172.30.1.3")
                 .and()
                 .addFilter(getAuthenticationFilter());
 
@@ -40,7 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     private AuthenticationFilter getAuthenticationFilter() throws Exception {
-        AuthenticationFilter authenticationFilter = new AuthenticationFilter();
+        AuthenticationFilter authenticationFilter = new AuthenticationFilter(authenticationManager(), userService, environment);
         authenticationFilter.setAuthenticationManager(authenticationManager());
         return authenticationFilter;
     }
