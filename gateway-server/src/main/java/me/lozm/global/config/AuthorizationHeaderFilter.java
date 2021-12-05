@@ -1,7 +1,6 @@
 package me.lozm.global.config;
 
 import io.jsonwebtoken.*;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
@@ -17,14 +16,19 @@ import reactor.core.publisher.Mono;
 
 @Slf4j
 @Component
-@RequiredArgsConstructor
 public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<AuthorizationHeaderFilter.Config> {
 
-    private final Environment environment;
+    private Environment environment;
 
 
     public static class Config {
 
+    }
+
+
+    public AuthorizationHeaderFilter(Environment environment) {
+        super(Config.class);
+        this.environment = environment;
     }
 
 
