@@ -9,6 +9,11 @@
 
 ## user-service
 * Microservice for test
+* User REST API
+
+## catalog-service
+* Microservice for test
+* Product catalog REST API
 
 ## admin-service
 * Microservice for test
