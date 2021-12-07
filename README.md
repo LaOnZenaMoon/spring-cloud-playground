@@ -15,6 +15,10 @@
 * Microservice for test
 * Product catalog REST API
 
+## order-service
+* Microservice for test
+* Order REST API
+
 ## admin-service
 * Microservice for test
 
