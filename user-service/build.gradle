@@ -16,4 +16,7 @@ dependencies {
     // Spring Cloud Config
     implementation 'org.springframework.cloud:spring-cloud-starter-config:3.0.0'
     implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap:3.0.0'
+
+    // Spring Cloud Config > hot-deploy
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
 }
