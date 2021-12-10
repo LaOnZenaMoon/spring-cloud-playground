@@ -1,3 +1,14 @@
+### gateway-server > config-service > 속성 변경 반영
+POST {{host}}/actuator/refresh
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status == 200, "Response status is not 200");
+});
+%}
+
+
+
 ### user-service > config-service > 속성 변경 반영
 POST {{host}}/user-service/actuator/refresh
 
