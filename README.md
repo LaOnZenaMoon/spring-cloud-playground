@@ -31,3 +31,4 @@
 * Spring Cloud
   * Spring Cloud Netflix Eureka
   * Spring Cloud Gateway
+  * Spring Cloud Config
