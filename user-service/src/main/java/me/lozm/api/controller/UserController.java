@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static java.lang.String.format;
 import static java.util.stream.Collectors.toList;
 import static me.lozm.global.utils.ModelMapperUtils.mapStrictly;
 
@@ -27,7 +28,11 @@ public class UserController {
 
     @GetMapping("health-check")
     public String healthCheck() {
-        return String.format("User service is available on PORT %s", environment.getProperty("local.server.port"));
+        return format("User service is available on Port: %s, JWT Token: %s, JWT Expiration Time: %s",
+                environment.getProperty("local.server.port"),
+                environment.getProperty("jwt-token.secret-key"),
+                environment.getProperty("jwt-token.expiration-time")
+        );
     }
 
     @GetMapping("users/{userId}")
