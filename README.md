@@ -23,7 +23,10 @@
 * Microservice for test
 
 ## core
-* Common module used by all microservices 
+* Common module used by all microservices
+
+## config-server
+* Spring Cloud Config Server
 
 ## skills
 * Java 11
