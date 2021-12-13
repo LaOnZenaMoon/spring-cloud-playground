@@ -19,4 +19,7 @@ dependencies {
 
     // Spring Cloud Config > hot-deploy
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+    // Spring Cloud Bus
+    implementation 'org.springframework.cloud:spring-cloud-starter-bus-amqp:3.0.0'
 }

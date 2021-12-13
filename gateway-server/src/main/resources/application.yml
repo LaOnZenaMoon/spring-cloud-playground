@@ -76,6 +76,11 @@ spring:
                 preLogger: true
                 postLogger: true
             - RewritePath=/admin-service/(?<segment>.*), /$\{segment}
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
 
 eureka:
   client:
@@ -88,4 +93,4 @@ management:
   endpoints:
     web:
       exposure:
-        include: refresh, health, beans, info, httptrace
+        include: refresh, health, beans, info, httptrace, busrefresh

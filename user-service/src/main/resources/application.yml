@@ -6,6 +6,11 @@ spring:
     name: user-service-app
   profiles:
     active: local
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
 
 eureka:
   instance:
@@ -20,4 +25,4 @@ management:
   endpoints:
     web:
       exposure:
-        include: refresh, health, beans, info
+        include: refresh, health, beans, info, busrefresh

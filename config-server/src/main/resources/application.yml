@@ -9,3 +9,14 @@ spring:
       server:
         git:
           uri: file:///Users/junlee/lozm/git/personal/spring-cloud-playground/config-server/config-repo
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, busrefresh
