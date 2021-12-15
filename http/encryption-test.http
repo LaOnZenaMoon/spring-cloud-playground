@@ -1,0 +1,25 @@
+### config-service > 대칭키 암호화
+POST http://localhost:8888/encrypt
+Content-Type: text/plain
+
+{{plainText}}
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status == 200, "Response status is not 200");
+});
+client.global.set("encryptedText", response.body);
+%}
+
+### config-service > 대칭키 복호화
+POST http://localhost:8888/decrypt
+Content-Type: text/plain
+
+{{encryptedText}}
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status == 200, "Response status is not 200");
+});
+client.log(response.body);
+%}
