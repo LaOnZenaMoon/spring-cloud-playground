@@ -2,6 +2,6 @@ spring:
   cloud:
     config:
       uri: http://localhost:8888
-      name: ecommerce # Spring Cloud Config YAML file name
-  profiles:
-    active: dev
+      name: user-service # Spring Cloud Config YAML file name
+#  profiles:
+#    active: default

@@ -8,7 +8,7 @@ spring:
     config:
       server:
         git:
-          uri: file:///Users/junlee/lozm/git/personal/spring-cloud-playground/config-server/config-repo
+          uri: file://${user.home}/lozm/git/personal/spring-cloud-playground/config-server/config-repo
   rabbitmq:
     host: localhost
     port: 5672

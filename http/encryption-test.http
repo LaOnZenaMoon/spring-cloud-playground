@@ -9,6 +9,7 @@ client.test("Request executed successfully", function() {
   client.assert(response.status == 200, "Response status is not 200");
 });
 client.global.set("encryptedText", response.body);
+client.log(client.global.get("encryptedText"));
 %}
 
 ### config-service > 대칭키 복호화

@@ -1,0 +1,30 @@
+### user-service > health check
+GET {{host}}/user-service/health-check
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status == 200, "Response status is not 200");
+});
+%}
+
+
+
+### catalog-service > health check
+GET {{host}}/catalog-service/health-check
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status == 200, "Response status is not 200");
+});
+%}
+
+
+
+### order-service > health check
+GET {{host}}/order-service/health-check
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status == 200, "Response status is not 200");
+});
+%}
