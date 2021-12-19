@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new IllegalArgumentException(format("사용자 정보가 존재하지 않습니다. 사용자 ID: %s", userId)));
         UserInfoVo userInfoVo = mapStrictly(user, UserInfoVo.class);
 
-        String usersOrdersApiUrl = environment.getProperty("microservice.gateway-server") + format(environment.getProperty("microservice.order-service.get-users-orders"), userId);
+        String usersOrdersApiUrl = environment.getProperty("microservice.order-service.url") + format(environment.getProperty("microservice.order-service.get-users-orders"), userId);
         ResponseEntity<List<OrderInfoResponseDto>> orderListResponse = restTemplate.exchange(usersOrdersApiUrl, HttpMethod.GET, null, new ParameterizedTypeReference<List<OrderInfoResponseDto>>() {});
         List<OrderInfoVo> orderList = orderListResponse.getBody()
                 .stream()

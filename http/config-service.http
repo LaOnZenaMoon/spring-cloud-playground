@@ -1,9 +1,9 @@
 ### gateway-server > config-service > 속성 변경 반영
-POST {{host}}/busrefresh
+POST {{host}}/actuator/busrefresh
 
 > {%
 client.test("Request executed successfully", function() {
-  client.assert(response.status == 200, "Response status is not 200");
+  client.assert(response.status == 204, "Response status is not 204");
 });
 %}
 
@@ -12,7 +12,7 @@ POST {{host}}/actuator/refresh
 
 > {%
 client.test("Request executed successfully", function() {
-  client.assert(response.statuㄹs == 200, "Response status is not 200");
+  client.assert(response.status == 200, "Response status is not 200");
 });
 %}
 
