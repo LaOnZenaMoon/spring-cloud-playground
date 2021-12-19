@@ -1,2 +1,7 @@
 encrypt:
-  key: laonzenamoon-encrypt-key
+#  key: laonzenamoon-encrypt-key
+  key-store:
+    # /Users/1004757/lozm/git/personal/spring-cloud-config-server/keystore/springCloudConfigServer.jks
+    location: file://${user.home}/lozm/git/personal/spring-cloud-config-server/keystore/springCloudConfigServer.jks
+    password: asdfasdf1234
+    alias: springCloudConfigServer
