@@ -1,15 +1,21 @@
 package me.lozm.api.service;
 
 import lombok.RequiredArgsConstructor;
+import me.lozm.domain.order.dto.OrderInfoResponseDto;
 import me.lozm.domain.user.entity.User;
 import me.lozm.domain.user.repository.UserRepository;
 import me.lozm.domain.user.vo.OrderInfoVo;
 import me.lozm.domain.user.vo.UserCreateVo;
 import me.lozm.domain.user.vo.UserInfoVo;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.core.env.Environment;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +31,8 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
+    private final Environment environment;
+    private final RestTemplate restTemplate;
 
 
     @Override
@@ -42,10 +50,16 @@ public class UserServiceImpl implements UserService {
     public UserInfoVo getUserDetail(String userId) {
         User user = userRepository.findByUserId(userId)
                 .orElseThrow(() -> new IllegalArgumentException(format("사용자 정보가 존재하지 않습니다. 사용자 ID: %s", userId)));
-
         UserInfoVo userInfoVo = mapStrictly(user, UserInfoVo.class);
-        List<OrderInfoVo> orders = new ArrayList<>();
-        userInfoVo.setOrders(orders);
+
+        String usersOrdersApiUrl = environment.getProperty("microservice.gateway-server") + format(environment.getProperty("microservice.order-service.get-users-orders"), userId);
+        ResponseEntity<List<OrderInfoResponseDto>> orderListResponse = restTemplate.exchange(usersOrdersApiUrl, HttpMethod.GET, null, new ParameterizedTypeReference<List<OrderInfoResponseDto>>() {});
+        List<OrderInfoVo> orderList = orderListResponse.getBody()
+                .stream()
+                .map(orderInfoResponseDto -> mapStrictly(orderInfoResponseDto, OrderInfoVo.class))
+                .collect(toList());
+
+        userInfoVo.setOrders(orderList);
         return userInfoVo;
     }
 
