@@ -26,3 +26,7 @@ management:
     web:
       exposure:
         include: refresh, health, beans, info, busrefresh
+
+logging:
+  level:
+    me.lozm.api.client: DEBUG

@@ -1,6 +1,8 @@
 package me.lozm.api.service;
 
+import feign.FeignException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import me.lozm.api.client.OrderServiceClient;
 import me.lozm.domain.order.dto.OrderInfoResponseDto;
 import me.lozm.domain.user.entity.User;
@@ -26,6 +28,7 @@ import static java.lang.String.format;
 import static java.util.stream.Collectors.toList;
 import static me.lozm.global.utils.ModelMapperUtils.mapStrictly;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -61,7 +64,14 @@ public class UserServiceImpl implements UserService {
 //                .map(orderInfoResponseDto -> mapStrictly(orderInfoResponseDto, OrderInfoVo.class))
 //                .collect(toList());
 
-        List<OrderInfoVo> orderList = orderServiceClient.getOrders(userId)
+        List<OrderInfoResponseDto> responseList = null;
+        try {
+            responseList = orderServiceClient.getOrders(userId);
+        } catch (FeignException.FeignClientException e) {
+            log.error(e.getMessage());
+        }
+
+        List<OrderInfoVo> orderList = responseList
                 .stream()
                 .map(orderInfoResponseDto -> mapStrictly(orderInfoResponseDto, OrderInfoVo.class))
                 .collect(toList());
