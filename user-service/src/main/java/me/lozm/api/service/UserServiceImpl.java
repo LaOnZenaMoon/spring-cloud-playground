@@ -1,6 +1,7 @@
 package me.lozm.api.service;
 
 import lombok.RequiredArgsConstructor;
+import me.lozm.api.client.OrderServiceClient;
 import me.lozm.domain.order.dto.OrderInfoResponseDto;
 import me.lozm.domain.user.entity.User;
 import me.lozm.domain.user.repository.UserRepository;
@@ -32,7 +33,8 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
     private final Environment environment;
-    private final RestTemplate restTemplate;
+//    private final RestTemplate restTemplate;
+    private final OrderServiceClient orderServiceClient;
 
 
     @Override
@@ -52,9 +54,14 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new IllegalArgumentException(format("사용자 정보가 존재하지 않습니다. 사용자 ID: %s", userId)));
         UserInfoVo userInfoVo = mapStrictly(user, UserInfoVo.class);
 
-        String usersOrdersApiUrl = environment.getProperty("microservice.order-service.url") + format(environment.getProperty("microservice.order-service.get-users-orders"), userId);
-        ResponseEntity<List<OrderInfoResponseDto>> orderListResponse = restTemplate.exchange(usersOrdersApiUrl, HttpMethod.GET, null, new ParameterizedTypeReference<List<OrderInfoResponseDto>>() {});
-        List<OrderInfoVo> orderList = orderListResponse.getBody()
+//        String usersOrdersApiUrl = environment.getProperty("microservice.order-service.url") + format(environment.getProperty("microservice.order-service.get-users-orders"), userId);
+//        ResponseEntity<List<OrderInfoResponseDto>> orderListResponse = restTemplate.exchange(usersOrdersApiUrl, HttpMethod.GET, null, new ParameterizedTypeReference<List<OrderInfoResponseDto>>() {});
+//        List<OrderInfoVo> orderList = orderListResponse.getBody()
+//                .stream()
+//                .map(orderInfoResponseDto -> mapStrictly(orderInfoResponseDto, OrderInfoVo.class))
+//                .collect(toList());
+
+        List<OrderInfoVo> orderList = orderServiceClient.getOrders(userId)
                 .stream()
                 .map(orderInfoResponseDto -> mapStrictly(orderInfoResponseDto, OrderInfoVo.class))
                 .collect(toList());
