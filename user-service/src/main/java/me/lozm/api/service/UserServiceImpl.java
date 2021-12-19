@@ -64,13 +64,7 @@ public class UserServiceImpl implements UserService {
 //                .map(orderInfoResponseDto -> mapStrictly(orderInfoResponseDto, OrderInfoVo.class))
 //                .collect(toList());
 
-        List<OrderInfoResponseDto> responseList = null;
-        try {
-            responseList = orderServiceClient.getOrders(userId);
-        } catch (FeignException.FeignClientException e) {
-            log.error(e.getMessage());
-        }
-
+        List<OrderInfoResponseDto> responseList = orderServiceClient.getOrders(userId);
         List<OrderInfoVo> orderList = responseList
                 .stream()
                 .map(orderInfoResponseDto -> mapStrictly(orderInfoResponseDto, OrderInfoVo.class))
