@@ -42,3 +42,4 @@
   * Spring Cloud Gateway
   * Spring Cloud Config
   * Spring Cloud Bus
+  * HTTP Request: Rest Template, Feign Client

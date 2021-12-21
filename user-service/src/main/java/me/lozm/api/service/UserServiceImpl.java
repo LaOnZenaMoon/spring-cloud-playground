@@ -64,6 +64,7 @@ public class UserServiceImpl implements UserService {
 //                .map(orderInfoResponseDto -> mapStrictly(orderInfoResponseDto, OrderInfoVo.class))
 //                .collect(toList());
 
+
         List<OrderInfoResponseDto> responseList = orderServiceClient.getOrders(userId);
         List<OrderInfoVo> orderList = responseList
                 .stream()
