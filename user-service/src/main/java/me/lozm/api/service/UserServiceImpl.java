@@ -1,6 +1,5 @@
 package me.lozm.api.service;
 
-import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.lozm.api.client.OrderServiceClient;
@@ -10,15 +9,10 @@ import me.lozm.domain.user.repository.UserRepository;
 import me.lozm.domain.user.vo.OrderInfoVo;
 import me.lozm.domain.user.vo.UserCreateVo;
 import me.lozm.domain.user.vo.UserInfoVo;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.core.env.Environment;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +29,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
-    private final Environment environment;
+//    private final Environment environment;
 //    private final RestTemplate restTemplate;
     private final OrderServiceClient orderServiceClient;
 
