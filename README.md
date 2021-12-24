@@ -43,3 +43,6 @@
   * Spring Cloud Config
   * Spring Cloud Bus
   * HTTP Request: Rest Template, Feign Client
+* Messaging service
+  * RabbitMQ
+  * Kafka
