@@ -1,0 +1,15 @@
+version: "3"
+services:
+  spring-cloud-rabbitmq:
+    restart: always
+    image: arm64v8/rabbitmq
+    container_name: spring-cloud-rabbitmq
+    ports:
+      - '4369:4369'
+      - '5671:5671'
+      - '5672:5672'
+      - '15672:15672'
+      - '25672:25672'
+      - '61613:61613'
+    volumes:
+      - ./volumes/rabbitmq:/data
