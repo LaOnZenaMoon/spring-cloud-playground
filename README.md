@@ -46,3 +46,4 @@
 * Messaging service
   * RabbitMQ
   * Kafka
+* Docker
