@@ -1,3 +1,12 @@
+### gateway-server > config-service > 속성 변경 반영
+POST {{host}}/actuator/refresh
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status == 204, "Response status is not 204");
+});
+%}
+
 ### user-service > 사용자 추가 이전 > 사용자 로그인
 POST {{host}}/user-service/login
 Content-Type: application/json
@@ -19,7 +28,7 @@ POST {{host}}/user-service/users
 Content-Type: application/json
 
 {
-  "email": "laonzenamoon2@gmail.com",
+  "email": "laonzenamoon@gmail.com",
   "name": "JUN LEE",
   "password": "asdf1234"
 }
@@ -36,7 +45,7 @@ POST {{host}}/user-service/login
 Content-Type: application/json
 
 {
-  "email": "laonzenamoon2@gmail.com",
+  "email": "laonzenamoon@gmail.com",
   "password": "asdf1234"
 }
 

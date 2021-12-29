@@ -5,3 +5,4 @@ spring:
       name: user-service # Spring Cloud Config YAML file name
   profiles:
     active: dev
+#    active: local

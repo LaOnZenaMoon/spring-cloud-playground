@@ -7,6 +7,15 @@ client.test("Request executed successfully", function() {
 });
 %}
 
+### gateway-server > config-service > 속성 변경 반영
+POST {{host}}/actuator/refresh
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status == 204, "Response status is not 204");
+});
+%}
+
 ### config-service > 속성 변경 반영
 POST {{host}}/actuator/refresh
 
