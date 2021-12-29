@@ -46,4 +46,5 @@
 * Messaging service
   * RabbitMQ
   * Kafka
+    * [Using Docker, Kafka](https://github.com/wurstmeister/kafka-docker)
 * Docker

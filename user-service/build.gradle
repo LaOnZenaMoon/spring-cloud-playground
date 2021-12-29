@@ -25,4 +25,7 @@ dependencies {
 
     // Feign Client
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+
+    // Maria DB Client
+    implementation 'org.mariadb.jdbc:mariadb-java-client:2.7.4'
 }

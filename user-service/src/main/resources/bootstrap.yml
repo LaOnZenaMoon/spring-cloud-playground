@@ -3,5 +3,5 @@ spring:
     config:
       uri: http://localhost:8888
       name: user-service # Spring Cloud Config YAML file name
-#  profiles:
-#    active: default
+  profiles:
+    active: dev
