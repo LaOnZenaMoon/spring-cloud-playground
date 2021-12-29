@@ -11,4 +11,7 @@ dependencies {
 
     // Maria DB Client
     implementation 'org.mariadb.jdbc:mariadb-java-client:2.7.4'
+
+    // Spring Kafka
+    implementation 'org.springframework.kafka:spring-kafka:2.8.0'
 }

@@ -37,7 +37,7 @@ public class KafkaConsumer {
         }
 
         String productId = (String) map.get("productId");
-        String quantity = (String) map.getOrDefault("quantity", "0");
+        Integer quantity = (Integer) map.getOrDefault("quantity", 0);
         Catalog catalog = catalogHelperService.getCatalog(productId);
         catalog.updateStock(Integer.valueOf(quantity));
     }

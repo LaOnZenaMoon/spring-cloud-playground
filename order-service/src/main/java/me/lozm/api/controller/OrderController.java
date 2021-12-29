@@ -1,12 +1,14 @@
 package me.lozm.api.controller;
 
 import lombok.RequiredArgsConstructor;
+import me.lozm.api.messageQueue.KafkaProducer;
 import me.lozm.api.service.OrderService;
 import me.lozm.domain.catalog.dto.CatalogInfoResponseDto;
 import me.lozm.domain.catalog.vo.CatalogInfoVo;
 import me.lozm.domain.order.dto.OrderCreateRequestDto;
 import me.lozm.domain.order.dto.OrderInfoResponseDto;
 import me.lozm.domain.order.vo.OrderInfoVo;
+import org.springframework.context.annotation.Description;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +26,7 @@ public class OrderController {
 
     private final Environment environment;
     private final OrderService orderService;
+    private final KafkaProducer kafkaProducer;
 
 
     @GetMapping("health-check")
@@ -58,6 +61,8 @@ public class OrderController {
         OrderInfoVo orderInfoVo = mapStrictly(requestDto, OrderInfoVo.class);
         orderInfoVo.setUserId(userId);
         OrderInfoVo responseOrderInfoVo = orderService.createOrder(orderInfoVo);
+
+        kafkaProducer.send("example-catalog-topic", orderInfoVo);
 
         OrderInfoResponseDto responseDto = mapStrictly(responseOrderInfoVo, OrderInfoResponseDto.class);
         return ResponseEntity.status(HttpStatus.CREATED)

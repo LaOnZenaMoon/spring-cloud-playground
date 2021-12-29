@@ -39,7 +39,7 @@ public class Catalog {
 
 
     public void updateStock(Integer stock) {
-        this.stock += stock;
+        this.stock -= stock;
     }
 
 }
