@@ -37,7 +37,7 @@ Content-Type: application/json
 client.test("Request executed successfully", function() {
   client.assert(response.status == 201, "Response status is not 201");
 });
-client.global.set("userId", response.body.userId);
+// client.global.set("userId", response.body.userId);
 %}
 
 ### user-service > 사용자 추가 이후 > 사용자 로그인
@@ -55,6 +55,8 @@ client.test("Request executed successfully", function() {
 });
 client.global.set("jwt", response.headers.valueOf("token"));
 client.log(response.headers.valueOf("token"));
+client.global.set("userId", response.headers.valueOf("userId"));
+client.log(response.headers.valueOf("userId"));
 %}
 
 ### user-service > health check
