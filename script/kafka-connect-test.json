@@ -1,0 +1,45 @@
+//Kafka 데이터 추가
+
+{
+  "schema": {
+    "type": "struct",
+    "fields": [
+      {
+        "type": "int32",
+        "optional": false,
+        "field": "id"
+      },
+      {
+        "type": "string",
+        "optional": true,
+        "field": "user_id"
+      },
+      {
+        "type": "string",
+        "optional": true,
+        "field": "pwd"
+      },
+      {
+        "type": "string",
+        "optional": true,
+        "field": "name"
+      },
+      {
+        "type": "int64",
+        "optional": true,
+        "name": "org.apache.kafka.connect.data.Timestamp",
+        "version": 1,
+        "field": "created_at"
+      }
+    ],
+    "optional": false,
+    "name": "users"
+  },
+  "payload": {
+    "id": 4,
+    "user_id": "test4",
+    "pwd": "asdf1234",
+    "name": "test_users4",
+    "created_at": 1640707328000
+  }
+}

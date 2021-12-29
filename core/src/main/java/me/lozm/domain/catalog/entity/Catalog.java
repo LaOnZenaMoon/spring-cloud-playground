@@ -37,4 +37,9 @@ public class Catalog {
     @ColumnDefault("CURRENT_TIMESTAMP")
     private LocalDateTime createdDateTime;
 
+
+    public void updateStock(Integer stock) {
+        this.stock += stock;
+    }
+
 }
