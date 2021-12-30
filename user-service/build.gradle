@@ -28,4 +28,7 @@ dependencies {
 
     // Maria DB Client
     implementation 'org.mariadb.jdbc:mariadb-java-client:2.7.4'
+
+    // Circuit Breaker > Resilience4j
+    implementation 'org.springframework.cloud:spring-cloud-circuitbreaker-resilience4j'
 }

@@ -9,6 +9,8 @@ import me.lozm.domain.user.repository.UserRepository;
 import me.lozm.domain.user.vo.OrderInfoVo;
 import me.lozm.domain.user.vo.UserCreateVo;
 import me.lozm.domain.user.vo.UserInfoVo;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreaker;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -29,9 +31,10 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
-//    private final Environment environment;
+    //    private final Environment environment;
 //    private final RestTemplate restTemplate;
     private final OrderServiceClient orderServiceClient;
+    private final CircuitBreakerFactory circuitBreakerFactory;
 
 
     @Override
@@ -59,7 +62,11 @@ public class UserServiceImpl implements UserService {
 //                .collect(toList());
 
 
-        List<OrderInfoResponseDto> responseList = orderServiceClient.getOrders(userId);
+//        List<OrderInfoResponseDto> responseList = orderServiceClient.getOrders(userId);
+        CircuitBreaker circuitBreaker = circuitBreakerFactory.create("circuitBreaker");
+        List<OrderInfoResponseDto> responseList = circuitBreaker.run(() -> orderServiceClient.getOrders(userId),
+                throwable -> new ArrayList<>());
+
         List<OrderInfoVo> orderList = responseList
                 .stream()
                 .map(orderInfoResponseDto -> mapStrictly(orderInfoResponseDto, OrderInfoVo.class))
