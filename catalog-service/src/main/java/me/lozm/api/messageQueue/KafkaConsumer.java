@@ -24,7 +24,7 @@ public class KafkaConsumer {
     private final ObjectMapper objectMapper = new ObjectMapper();
 
 
-    @KafkaListener(topics = "example-catalog-topic")
+    @KafkaListener(topics = "catalogs")
     @Transactional
     public void updateQuantity(String kafkaMessage) {
         log.info(String.format("Kafka Message: %s", kafkaMessage));

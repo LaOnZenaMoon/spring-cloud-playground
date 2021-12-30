@@ -1,21 +1,19 @@
 package me.lozm.api.controller;
 
 import lombok.RequiredArgsConstructor;
-import me.lozm.api.messageQueue.KafkaProducer;
+import me.lozm.api.messageQueue.CatalogProducer;
+import me.lozm.api.messageQueue.OrderProducer;
 import me.lozm.api.service.OrderService;
-import me.lozm.domain.catalog.dto.CatalogInfoResponseDto;
-import me.lozm.domain.catalog.vo.CatalogInfoVo;
 import me.lozm.domain.order.dto.OrderCreateRequestDto;
 import me.lozm.domain.order.dto.OrderInfoResponseDto;
 import me.lozm.domain.order.vo.OrderInfoVo;
-import org.springframework.context.annotation.Description;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.UUID;
 
 import static java.util.stream.Collectors.toList;
 import static me.lozm.global.utils.ModelMapperUtils.mapStrictly;
@@ -26,7 +24,8 @@ public class OrderController {
 
     private final Environment environment;
     private final OrderService orderService;
-    private final KafkaProducer kafkaProducer;
+    private final CatalogProducer catalogProducer;
+    private final OrderProducer orderProducer;
 
 
     @GetMapping("health-check")
@@ -60,11 +59,17 @@ public class OrderController {
 
         OrderInfoVo orderInfoVo = mapStrictly(requestDto, OrderInfoVo.class);
         orderInfoVo.setUserId(userId);
-        OrderInfoVo responseOrderInfoVo = orderService.createOrder(orderInfoVo);
+//        OrderInfoVo responseOrderInfoVo = orderService.createOrder(orderInfoVo);
 
-        kafkaProducer.send("example-catalog-topic", orderInfoVo);
+        orderInfoVo.setOrderId(UUID.randomUUID().toString());
+        orderInfoVo.setUnitPrice(100);
+        orderInfoVo.setTotalPrice(orderInfoVo.getUnitPrice() * orderInfoVo.getQuantity());
 
-        OrderInfoResponseDto responseDto = mapStrictly(responseOrderInfoVo, OrderInfoResponseDto.class);
+        catalogProducer.send("catalogs", orderInfoVo);
+        orderProducer.send("orders", orderInfoVo);
+
+//        OrderInfoResponseDto responseDto = mapStrictly(responseOrderInfoVo, OrderInfoResponseDto.class);
+        OrderInfoResponseDto responseDto = mapStrictly(orderInfoVo, OrderInfoResponseDto.class);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(responseDto);
     }

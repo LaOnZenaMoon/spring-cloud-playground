@@ -10,6 +10,7 @@ public class OrderInfoVo {
     private String orderId;
     private String productId;
     private Integer quantity;
+    @Setter
     private Integer unitPrice;
     @Setter
     private Integer totalPrice;
