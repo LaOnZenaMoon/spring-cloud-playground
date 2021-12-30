@@ -21,4 +21,8 @@ dependencies {
 
     // Spring Kafka
     implementation 'org.springframework.kafka:spring-kafka:2.8.0'
+
+    // Zipkin
+    implementation 'org.springframework.cloud:spring-cloud-starter-zipkin:2.2.3.RELEASE'
+    implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
 }

@@ -42,7 +42,13 @@
   * Spring Cloud Gateway
   * Spring Cloud Config
   * Spring Cloud Bus
-  * HTTP Request: Rest Template, Feign Client
+  * HTTP Request 
+    * Rest Template, Feign Client
+  * Circuit Breaker
+    * Resilience4j
+  * Distributed Transaction
+    * Spring Cloud Zipkin
+    * Spring Cloud Sleuth
 * Messaging service
   * RabbitMQ
   * Kafka

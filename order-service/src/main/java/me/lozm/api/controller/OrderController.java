@@ -1,6 +1,7 @@
 package me.lozm.api.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import me.lozm.api.messageQueue.CatalogProducer;
 import me.lozm.api.messageQueue.OrderProducer;
 import me.lozm.api.service.OrderService;
@@ -18,6 +19,7 @@ import java.util.UUID;
 import static java.util.stream.Collectors.toList;
 import static me.lozm.global.utils.ModelMapperUtils.mapStrictly;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class OrderController {
@@ -44,11 +46,14 @@ public class OrderController {
 
     @GetMapping("{userId}/orders")
     public ResponseEntity<List<OrderInfoResponseDto>> getOrderList(@PathVariable("userId") String userId) {
+        log.info("Before receive orders data");
         List<OrderInfoVo> orderList = orderService.getOrderList(userId);
 
         List<OrderInfoResponseDto> responseList = orderList.stream()
                 .map(orderInfoVo -> mapStrictly(orderInfoVo, OrderInfoResponseDto.class))
                 .collect(toList());
+        log.info("After receive orders data");
+
         return ResponseEntity.status(HttpStatus.OK)
                 .body(responseList);
     }
@@ -57,19 +62,23 @@ public class OrderController {
     public ResponseEntity<OrderInfoResponseDto> createOrder(@PathVariable("userId") String userId,
                                                             @RequestBody OrderCreateRequestDto requestDto) {
 
+        log.info("Before add orders data");
+
         OrderInfoVo orderInfoVo = mapStrictly(requestDto, OrderInfoVo.class);
         orderInfoVo.setUserId(userId);
-//        OrderInfoVo responseOrderInfoVo = orderService.createOrder(orderInfoVo);
+        OrderInfoVo responseOrderInfoVo = orderService.createOrder(orderInfoVo);
+        OrderInfoResponseDto responseDto = mapStrictly(responseOrderInfoVo, OrderInfoResponseDto.class);
 
-        orderInfoVo.setOrderId(UUID.randomUUID().toString());
-        orderInfoVo.setUnitPrice(100);
-        orderInfoVo.setTotalPrice(orderInfoVo.getUnitPrice() * orderInfoVo.getQuantity());
+//        orderInfoVo.setOrderId(UUID.randomUUID().toString());
+//        orderInfoVo.setUnitPrice(100);
+//        orderInfoVo.setTotalPrice(orderInfoVo.getUnitPrice() * orderInfoVo.getQuantity());
+//
+//        catalogProducer.send("catalogs", orderInfoVo);
+//        orderProducer.send("orders", orderInfoVo);
+//        OrderInfoResponseDto responseDto = mapStrictly(orderInfoVo, OrderInfoResponseDto.class);
 
-        catalogProducer.send("catalogs", orderInfoVo);
-        orderProducer.send("orders", orderInfoVo);
+        log.info("After add orders data");
 
-//        OrderInfoResponseDto responseDto = mapStrictly(responseOrderInfoVo, OrderInfoResponseDto.class);
-        OrderInfoResponseDto responseDto = mapStrictly(orderInfoVo, OrderInfoResponseDto.class);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(responseDto);
     }

@@ -31,4 +31,8 @@ dependencies {
 
     // Circuit Breaker > Resilience4j
     implementation 'org.springframework.cloud:spring-cloud-circuitbreaker-resilience4j'
+
+    // Zipkin
+    implementation 'org.springframework.cloud:spring-cloud-starter-zipkin:2.2.3.RELEASE'
+    implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
 }
