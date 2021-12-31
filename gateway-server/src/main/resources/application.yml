@@ -59,6 +59,13 @@ spring:
         - id: order-service
           uri: lb://order-service-app
           predicates:
+            - Path=/order-service/actuator/**
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/order-service/(?<segment>.*), /$\{segment}
+        - id: order-service
+          uri: lb://order-service-app
+          predicates:
             - Path=/order-service/**
           filters:
             - RewritePath=/order-service/(?<segment>.*), /$\{segment}
@@ -93,4 +100,4 @@ management:
   endpoints:
     web:
       exposure:
-        include: refresh, health, beans, info, httptrace, busrefresh
+        include: refresh, health, beans, info, httptrace, busrefresh, metrics, prometheus

@@ -1,5 +1,6 @@
 package me.lozm.api.controller;
 
+import io.micrometer.core.annotation.Timed;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.lozm.api.messageQueue.CatalogProducer;
@@ -31,11 +32,13 @@ public class OrderController {
 
 
     @GetMapping("health-check")
+    @Timed(value = "orders.health-check", longTask = true)
     public String healthCheck() {
         return String.format("Order service is available on PORT %s", environment.getProperty("local.server.port"));
     }
 
     @GetMapping("orders/{orderId}")
+    @Timed(value = "orders.detail", longTask = true)
     public ResponseEntity<OrderInfoResponseDto> getOrderDetail(@PathVariable("orderId") String orderId) {
         OrderInfoVo orderInfoVo = orderService.getOrderDetail(orderId);
 
@@ -45,6 +48,7 @@ public class OrderController {
     }
 
     @GetMapping("{userId}/orders")
+    @Timed(value = "orders.list", longTask = true)
     public ResponseEntity<List<OrderInfoResponseDto>> getOrderList(@PathVariable("userId") String userId) {
         log.info("Before receive orders data");
         List<OrderInfoVo> orderList = orderService.getOrderList(userId);
@@ -59,6 +63,7 @@ public class OrderController {
     }
 
     @PostMapping("{userId}/orders")
+    @Timed(value = "orders.create", longTask = true)
     public ResponseEntity<OrderInfoResponseDto> createOrder(@PathVariable("userId") String userId,
                                                             @RequestBody OrderCreateRequestDto requestDto) {
 

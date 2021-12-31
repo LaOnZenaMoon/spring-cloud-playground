@@ -15,4 +15,7 @@ dependencies {
 
     // Spring Cloud Bus
     implementation 'org.springframework.cloud:spring-cloud-starter-bus-amqp:3.0.0'
+
+    // Micrometer
+    implementation 'io.micrometer:micrometer-registry-prometheus'
 }

@@ -35,4 +35,7 @@ dependencies {
     // Zipkin
     implementation 'org.springframework.cloud:spring-cloud-starter-zipkin:2.2.3.RELEASE'
     implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
+
+    // Micrometer
+    implementation 'io.micrometer:micrometer-registry-prometheus'
 }

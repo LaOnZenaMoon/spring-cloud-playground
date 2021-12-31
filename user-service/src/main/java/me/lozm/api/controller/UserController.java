@@ -1,5 +1,6 @@
 package me.lozm.api.controller;
 
+import io.micrometer.core.annotation.Timed;
 import lombok.RequiredArgsConstructor;
 import me.lozm.domain.user.dto.UserCreateRequestDto;
 import me.lozm.domain.user.dto.UserCreateResponseDto;
@@ -27,6 +28,7 @@ public class UserController {
 
 
     @GetMapping("health-check")
+    @Timed(value = "users.health-check", longTask = true)
     public String healthCheck() {
         return format("User service is available on Port: %s, JWT Token: %s, JWT Expiration Time: %s",
                 environment.getProperty("local.server.port"),
@@ -36,6 +38,7 @@ public class UserController {
     }
 
     @GetMapping("users/{userId}")
+    @Timed(value = "users.detail", longTask = true)
     public ResponseEntity<UserInfoResponseDto> getUserDetail(@PathVariable("userId") String userId) {
         UserInfoVo userInfoVo = userService.getUserDetail(userId);
 
@@ -45,6 +48,7 @@ public class UserController {
     }
 
     @GetMapping("users")
+    @Timed(value = "users.list", longTask = true)
     public ResponseEntity<List<UserInfoResponseDto>> getUserList() {
         List<UserInfoVo> userList = userService.getUserList();
 
@@ -56,6 +60,7 @@ public class UserController {
     }
 
     @PostMapping("users")
+    @Timed(value = "users.create", longTask = true)
     public ResponseEntity<UserCreateResponseDto> createUser(@RequestBody UserCreateRequestDto requestDto) {
         UserCreateVo userCreateVo = mapStrictly(requestDto, UserCreateVo.class);
         UserCreateVo responseUserCreateVo = userService.createUser(userCreateVo);
